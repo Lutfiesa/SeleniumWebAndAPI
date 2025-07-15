@@ -51,6 +51,7 @@ tasks.register('apiTest', JavaExec) {
     args = [
             '--plugin', 'pretty',
             '--plugin', 'html:reports/cucumber-api-test-report.html',
+            '--plugin', 'json:reports/cucumber-api-test-report.json',
             '--glue', 'stepDef',
             '--tags', '@api',
             'src/test/resources/feature'
@@ -70,6 +71,7 @@ tasks.register('webTest', JavaExec) {
     args = [
             '--plugin', 'pretty',
             '--plugin', 'html:reports/cucumber-web-test-report.html',
+            '--plugin', 'json:reports/cucumber-web-test-report.json',
             '--glue', 'stepDef',
             '--tags', '@login or @addChart',
             'src/test/resources/feature'
