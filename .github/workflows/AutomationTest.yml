@@ -27,9 +27,6 @@ jobs:
     
     - name: Setup Gradle
       run: chmod +x gradlew
-      
-    - name: Setup Gradle
-      uses: gradle/gradle-build-action@v2
 
     - name: Run Web Automation
       run: ./gradlew webTest
