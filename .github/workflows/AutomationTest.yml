@@ -12,7 +12,7 @@ jobs:
 
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write
 
     steps:
     - uses: actions/checkout@v4
@@ -33,4 +33,20 @@ jobs:
 
     - name: Run API Automation
       run: ./gradlew apiTest
+
+    #Archive Test Result
+    - name: Archive Test Result
+      uses: actions/upload-artifact@v4.6.2
+      if: always()
+      with:
+        name: Cucumber Web Report
+        path: reports
+
+    #Deploy to Github Page
+    - name: GitHub Pages action
+      if: always()
+      uses: peaceiris/actions-gh-pages@v4.0.0
+      with:
+        personal_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: reports
 
