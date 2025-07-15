@@ -10,10 +10,68 @@ repositories {
 }
 
 dependencies {
-    testImplementation platform('org.junit:junit-bom:5.10.0')
-    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.13.0-M2")
+    testImplementation("org.junit.jupiter:junit-jupiter-engine:5.13.0-M2")
+    testImplementation("org.junit.vintage:junit-vintage-engine:5.13.3")
+
+    implementation("io.cucumber:cucumber-java:7.23.0")
+    testImplementation("io.cucumber:cucumber-junit:7.23.0")
+
+    testImplementation 'io.rest-assured:rest-assured:5.5.5'
+    implementation 'io.rest-assured:json-path:5.5.5'
+    implementation 'io.rest-assured:json-schema-validator:5.5.5'
+    implementation 'org.json:json:20250107'
+    testImplementation 'org.assertj:assertj-core:3.27.3'
+
+    testImplementation 'org.seleniumhq.selenium:selenium-java:4.20.0'
+    implementation("io.github.bonigarcia:webdrivermanager:6.1.0")
 }
 
 test {
-    useJUnitPlatform()
+    useJUnit()
+    systemProperty "cucumber.filter.tags", System.getProperty("cucumber.filter.tags")
+}
+
+configurations {
+    cucumberRuntime {
+        extendsFrom testImplementation
+    }
+}
+
+tasks.register('apiTest', JavaExec) {
+    group = 'verification'
+    description = 'Run Cucumber API Tests'
+    dependsOn assemble, testClasses
+    mainClass.set('io.cucumber.core.cli.Main')
+    classpath.from(
+            configurations.cucumberRuntime,
+            sourceSets.main.output,
+            sourceSets.test.output
+    )
+    args = [
+            '--plugin', 'pretty',
+            '--plugin', 'html:reports/cucumber-api-test-report.html',
+            '--glue', 'stepDef',
+            '--tags', '@api',
+            'src/test/resources/feature/api'
+    ]
+}
+
+tasks.register('webTest', JavaExec) {
+    group = 'verification'
+    description = 'Run Cucumber Web Tests'
+    dependsOn assemble, testClasses
+    mainClass.set('io.cucumber.core.cli.Main')
+    classpath.from(
+            configurations.cucumberRuntime,
+            sourceSets.main.output,
+            sourceSets.test.output
+    )
+    args = [
+            '--plugin', 'pretty',
+            '--plugin', 'html:reports/cucumber-web-test-report.html',
+            '--glue', 'stepDef',
+            '--tags', '@login or @addChart',
+            'src/test/resources/feature/web'
+    ]
 }
