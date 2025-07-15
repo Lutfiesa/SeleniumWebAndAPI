@@ -1,19 +1,20 @@
 package pages;
 
+import org.junit.Assert;
 import org.openqa.selenium.By;
 
+import static helper.Endpoint.WEB_URL;
 import static helper.Utility.driver;
 
-public class WebPage {
+public class LoginPage {
 
     By input_username = By.id("user-name");
     By input_password = By.id("password");
     By button_login = By.id("login-button");
     By cart = By.xpath("//*[@class='shopping_cart_link']");
-    By error_message = By.xpath("//*[@class='error-button']");
 
     public void openBrowser(){
-        driver.get("https://www.saucedemo.com/");
+        driver.get(WEB_URL);
     }
 
     public void inputUsernameAndPassword(String username, String password){
@@ -29,8 +30,12 @@ public class WebPage {
         driver.findElement(cart).isDisplayed();
     }
 
-    public void errorMessage(){
-        driver.findElement(error_message).isDisplayed();
+    public By getErrorMessage(String message) {
+        return By.xpath("//h3[contains(text(),'" + message + "')]");
+    }
+
+    public void errorMessage(String errorMessage){
+        boolean isDisplayed = driver.findElement(getErrorMessage(errorMessage)).isDisplayed();
     }
 
 }

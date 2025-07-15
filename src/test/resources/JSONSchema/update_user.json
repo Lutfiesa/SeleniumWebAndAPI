@@ -1,0 +1,33 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "description": "",
+  "type": "object",
+  "properties": {
+    "email": {
+      "type": "string",
+      "minLength": 1
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "status": {
+      "type": "string",
+      "minLength": 1
+    },
+    "id": {
+      "type": "number"
+    },
+    "gender": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "required": [
+    "email",
+    "name",
+    "status",
+    "id",
+    "gender"
+  ]
+}

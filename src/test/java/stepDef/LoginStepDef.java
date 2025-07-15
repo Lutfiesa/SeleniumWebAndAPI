@@ -5,37 +5,37 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import pages.LoginPage;
 
-public class WebStepDef {
+public class LoginStepDef {
 
-    LoginPage webPage;
+    LoginPage loginPage;
 
-    public  WebStepDef() {
-        this.webPage = new LoginPage();
+    public LoginStepDef() {
+        this.loginPage = new LoginPage();
     }
 
     @Given("open web login page")
     public void openWebLoginPage() {
-        webPage.openBrowser();
+        loginPage.openBrowser();
     }
 
     @And("input valid username {string} and password {string}")
     public void inputValidUsernameAndPassword(String user, String pwd) {
-        webPage.inputUsernameAndPassword(user,pwd);
+        loginPage.inputUsernameAndPassword(user,pwd);
     }
 
 
     @And("click button login")
     public void clickButtonLogin() {
-        webPage.clickButtonLogin();
+        loginPage.clickButtonLogin();
     }
 
     @Then("user will direct to homepage")
     public void userWillDirectToHomepage() {
-        webPage.verifyHopePage();
+        loginPage.verifyHopePage();
     }
 
     @Then("user will see error message {string}")
     public void userWillSeeErrorMessage(String errorMessage) {
-        webPage.errorMessage(errorMessage);
+        loginPage.errorMessage(errorMessage);
     }
 }
