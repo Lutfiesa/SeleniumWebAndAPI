@@ -30,7 +30,7 @@ public class Utility {
     public static void startDriver() {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--incognito");
-//        options.addArguments("--headless");
+        options.addArguments("--headless");
         options.addArguments("--no-sanbox");
         options.addArguments("--disable-dev-shm-usage");
         options.addArguments("--remote-allow-origins=*");
