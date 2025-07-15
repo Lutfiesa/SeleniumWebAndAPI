@@ -39,7 +39,7 @@ jobs:
       uses: actions/upload-artifact@v4.6.2
       if: always()
       with:
-        name: Cucumber Web Report
+        name: Cucumber Web And API Report
         path: reports
 
     #Deploy to Github Page
