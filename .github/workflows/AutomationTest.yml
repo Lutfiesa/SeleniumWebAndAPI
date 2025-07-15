@@ -28,8 +28,8 @@ jobs:
     - name: Setup Gradle
       run: chmod +x gradlew
 
-    - name: Build with Gradle Wrapper
-      run: ./gradlew build
+    - name: Clean and Build
+      run: ./gradlew clean build --info
 
     - name: Run Web Automation
       run: ./gradlew webTest -Ptags="@smoke"
